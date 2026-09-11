@@ -1,7 +1,7 @@
 import { ScreenShell } from './ScreenShell';
 import { SentenceOrderGame } from './SentenceOrderGame';
 
-const WORDS = ['Ti', 'amo', 'da', 'matti,', 'come', "l'erba", "d'Irlanda:", 'sempre', 'verde.'];
+const WORDS = ['Ti', 'amo', 'un', 'sacchissimo,', 'come', "l'erba", "d'Irlanda:", 'sempre', 'verde.'];
 
 export function IrlandaScreen({ onSolved }: { onSolved: () => void }) {
   return (

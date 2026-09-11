@@ -29,10 +29,11 @@ export function SentenceOrderGame({
     setStatus('playing');
   }
 
+  const usedIdx = new Set(placed.map((p) => p.idx));
+
   function place(item: WordItem) {
-    if (status !== 'playing') return;
+    if (status !== 'playing' || usedIdx.has(item.idx)) return;
     const nextPlaced = [...placed, item];
-    setBank((b) => b.filter((w) => w !== item));
     setPlaced(nextPlaced);
 
     if (nextPlaced.length === words.length) {
@@ -49,9 +50,7 @@ export function SentenceOrderGame({
 
   function unplace(index: number) {
     if (status !== 'playing') return;
-    const item = placed[index];
     setPlaced((p) => p.filter((_, i) => i !== index));
-    setBank((b) => [...b, item]);
   }
 
   return (
@@ -70,7 +69,11 @@ export function SentenceOrderGame({
       </div>
       <div className="word-bank">
         {bank.map((item) => (
-          <div key={item.idx} className="word-chip" onClick={() => place(item)}>
+          <div
+            key={item.idx}
+            className={`word-chip${usedIdx.has(item.idx) ? ' used' : ''}`}
+            onClick={() => place(item)}
+          >
             {item.word}
           </div>
         ))}
