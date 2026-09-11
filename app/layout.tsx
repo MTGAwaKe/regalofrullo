@@ -1,23 +1,28 @@
 import type { Metadata, Viewport } from 'next';
-import { Fredoka, Poppins, Space_Mono } from 'next/font/google';
+import { Big_Shoulders_Stencil, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
 
-const fredoka = Fredoka({
+// Display face for sheet titles and the title-block lettering — a real
+// stencil face, the way a hand-drafted technical drawing is captioned.
+const stencil = Big_Shoulders_Stencil({
   subsets: ['latin'],
-  weight: ['500', '600', '700'],
-  variable: '--font-fredoka',
+  weight: ['700', '800'],
+  variable: '--font-stencil',
 });
 
-const poppins = Poppins({
+// Body copy. Paired with its own mono cut for anything genuinely numeric or
+// technical (sheet numbers, piece counts) — the two are one coordinated
+// type system rather than two unrelated typefaces.
+const plexSans = IBM_Plex_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-plex-sans',
+});
+
+const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
-  variable: '--font-poppins',
-});
-
-const spaceMono = Space_Mono({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-space-mono',
+  variable: '--font-plex-mono',
 });
 
 export const metadata: Metadata = {
@@ -29,12 +34,12 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   viewportFit: 'cover',
-  themeColor: '#0B1231',
+  themeColor: '#0B2E4A',
 };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="it" className={`${fredoka.variable} ${poppins.variable} ${spaceMono.variable}`}>
+    <html lang="it" className={`${stencil.variable} ${plexSans.variable} ${plexMono.variable}`}>
       <body>{children}</body>
     </html>
   );

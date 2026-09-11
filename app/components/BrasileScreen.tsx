@@ -10,9 +10,9 @@ const OPTIONS = [
 export function BrasileScreen({ onSolved }: { onSolved: () => void }) {
   return (
     <ScreenShell
-      screenId={6}
+      sheetIndex={6}
+      sheetName="Un luogo speciale"
       ambientIcons={['🌊', '🐚', '🐟']}
-      eyebrow="Gioco 6 · Un luogo speciale"
       title="Dove abbiamo trovato il santuario di Yemanjá?"
       lead="In Brasile, col profumo salmastro di quel giorno ancora vivo nei ricordi."
     >

@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { StarField } from './components/StarField';
 import { Inventory } from './components/Inventory';
 import { RewardToast, type ToastState } from './components/RewardToast';
 import { ConfettiLayer, useConfetti } from './components/Confetti';
@@ -159,7 +158,6 @@ export default function Home() {
 
   return (
     <>
-      <StarField />
       <Inventory pieces={inventory}>
         <AudioControl
           muted={music.muted}

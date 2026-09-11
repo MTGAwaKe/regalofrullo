@@ -2,31 +2,38 @@ import type { ReactNode } from 'react';
 import { Ambient } from './Ambient';
 
 /**
- * Common header (ambient icons + eyebrow + title + lead paragraph) shared by
- * every screen, wrapping whatever body content that screen needs.
+ * Every screen is one numbered sheet in the same drawing set — a title
+ * block (sheet number + drawing name) in a ruled frame with corner
+ * registration marks, the way an actual technical drawing is captioned.
+ * Content sits directly on the sheet; there is no separate floating card.
  */
 export function ScreenShell({
-  screenId,
+  sheetIndex,
+  sheetName,
   ambientIcons,
-  eyebrow,
   title,
   lead,
   children,
 }: {
-  screenId: number;
+  sheetIndex: number;
+  sheetName: string;
   ambientIcons: string[];
-  eyebrow: ReactNode;
   title: ReactNode;
   lead: ReactNode;
   children: ReactNode;
 }) {
   return (
-    <section className="screen" data-screen={screenId}>
+    <section className="sheet" data-sheet={sheetIndex}>
       <Ambient icons={ambientIcons} />
-      <span className="eyebrow">{eyebrow}</span>
-      <h1 className="title">{title}</h1>
-      <p className="lead">{lead}</p>
-      {children}
+      <div className="sheet-frame">
+        <div className="sheet-titleblock">
+          <span className="sheet-number">{String(sheetIndex).padStart(2, '0')} / 10</span>
+          <span className="sheet-name">{sheetName}</span>
+        </div>
+        <h1 className="sheet-title">{title}</h1>
+        <p className="sheet-lead">{lead}</p>
+        {children}
+      </div>
     </section>
   );
 }

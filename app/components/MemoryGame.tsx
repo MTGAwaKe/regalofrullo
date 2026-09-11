@@ -52,9 +52,9 @@ export function MemoryGame({ onSolved }: { onSolved: () => void }) {
 
   return (
     <ScreenShell
-      screenId={4}
+      sheetIndex={4}
+      sheetName="Piccola e imperfetta, ma buona"
       ambientIcons={['💙', '🌟', '🌙']}
-      eyebrow="Gioco 4 · Piccola e imperfetta, ma buona"
       title="Trova tutte le coppie."
       lead="Come un certo alieno blu che conosci bene: si va avanti tutti insieme, nessuno si perde e nessuno resta indietro."
     >

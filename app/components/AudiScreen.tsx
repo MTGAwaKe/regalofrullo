@@ -10,9 +10,9 @@ const OPTIONS = [
 export function AudiScreen({ onSolved }: { onSolved: () => void }) {
   return (
     <ScreenShell
-      screenId={8}
+      sheetIndex={8}
+      sheetName="La scintilla"
       ambientIcons={['✨', '🚗', '⚡']}
-      eyebrow="Gioco 8 · La scintilla"
       title="Cosa ha fatto scattare la scintilla tra noi?"
       lead="Non è la risposta che ti aspetti."
     >

@@ -14,9 +14,9 @@ export function FinalReveal({
 }) {
   return (
     <ScreenShell
-      screenId={10}
+      sheetIndex={10}
+      sheetName="Montaggio finale"
       ambientIcons={['🎉', '✨']}
-      eyebrow="Cassetta completa"
       title="Aspetta un attimo..."
       lead="Bullone, cacciavite, catena, ingranaggio, leva, gradino, trave, binario, sedile... tutti insieme, questi pezzi formano qualcosa."
     >

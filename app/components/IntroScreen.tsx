@@ -3,9 +3,9 @@ import { ScreenShell } from './ScreenShell';
 export function IntroScreen({ onStart }: { onStart: () => void }) {
   return (
     <ScreenShell
-      screenId={0}
+      sheetIndex={0}
+      sheetName="Copertina"
       ambientIcons={['✨', '🎈', '💌']}
-      eyebrow="Un biglietto un po' speciale"
       title={<>Ciao Frullino, ✨</>}
       lead="Ho preparato per te un piccolo biglietto di auguri interattivo il quale ti porterà alla scoperta del tuo regalo di compleanno. Scusami del ritardo con il quale tale sorpresa sta arrivando, ma proprio approfittando di quel ritardo ho avuto questa idea, che mi sembrava più interessante e interattiva."
     >

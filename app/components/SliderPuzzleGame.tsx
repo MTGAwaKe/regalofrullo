@@ -55,9 +55,9 @@ export function SliderPuzzleGame({ onSolved }: { onSolved: () => void }) {
 
   return (
     <ScreenShell
-      screenId={7}
+      sheetIndex={7}
+      sheetName="Il tuo piatto del cuore"
       ambientIcons={['🥣', '🌰', '🍑']}
-      eyebrow="Gioco 7 · Il tuo piatto del cuore"
       title="Rimetti in ordine gli ingredienti."
       lead="Fai scorrere le tessere per ricomporre la ricetta che ti fa sempre brillare gli occhi, seguendo l'ordine qui sotto. Le tessere che si illuminano sono quelle che puoi muovere."
     >

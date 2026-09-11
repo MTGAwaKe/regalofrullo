@@ -99,9 +99,9 @@ export function HiddenObjectGame({ onSolved }: { onSolved: () => void }) {
 
   return (
     <ScreenShell
-      screenId={2}
+      sheetIndex={2}
+      sheetName="Caccia agli indizi"
       ambientIcons={['☀️', '🌊', '🫒', '🐚']}
-      eyebrow="Gioco 2 · Caccia agli indizi"
       title="Trova i 4 simboli di quella terra assolata."
       lead="Guarda bene la griglia: i 4 simboli giusti si illuminano per un attimo. Poi si nascondono tutti — sta a te ricordare dove sono."
     >

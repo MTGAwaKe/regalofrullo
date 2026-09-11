@@ -6,9 +6,9 @@ const WORDS = ['Ti', 'amo', 'da', 'matti,', 'come', "l'erba", "d'Irlanda:", 'sem
 export function IrlandaScreen({ onSolved }: { onSolved: () => void }) {
   return (
     <ScreenShell
-      screenId={9}
+      sheetIndex={9}
+      sheetName="L'ultimo indizio"
       ambientIcons={['🍀', '🌈']}
-      eyebrow="Gioco 9 · L'ultimo indizio"
       title="Un ultimo indovinello, poi il regalo."
       lead="Il tuo posto del cuore, quello dove l'erba è sempre verde. Rimetti in ordine le parole."
     >

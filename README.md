@@ -17,12 +17,24 @@ npm run dev
 
 Apri [http://localhost:3000](http://localhost:3000).
 
+## Design
+
+Ogni schermata è un "foglio" numerato (00/10 … 10/10) dello stesso set di disegni tecnici — cartiglio
+in stencil, cornice con crocini d'angolo, griglia millimetrata sullo sfondo. Il freddo del disegno
+tecnico (blu, righelli, lettering stencil) contrasta con il caldo delle decorazioni fatte a mano (le
+emoji come adesivi, i pezzi raccolti come minuteria in ottone, un accento corallo per i timbri). Un
+solo momento di vero calore cromatico: il biglietto Gardaland finale.
+
+- Colori: `--paper` (blu blueprint), `--panel` (foglio), `--ink`/`--line` (inchiostro e righe), `--brass`
+  (pezzi raccolti, azioni), `--grease` (accento caldo), `--correct`/`--wrong` (esiti)
+- Type: *Big Shoulders Stencil* per cartigli/titoli tecnici, *IBM Plex Sans* + *IBM Plex Mono* per testi e dati
+
 ## Struttura
 
 - `app/page.tsx` — orchestratore: schermata corrente (con transizione), inventario, toast, coriandoli, persistenza progressi
-- `app/components/` — un componente React per schermata/gioco (stato vero, non più manipolazione diretta del DOM)
+- `app/components/` — un componente React per schermata/gioco (stato vero, non più manipolazione diretta del DOM); `ScreenShell` disegna il "foglio" comune a tutte
 - `app/lib/` — dati condivisi (i 10 pezzi), utility (shuffle), geometria del labirinto, motore audio
-- `app/globals.css` — stile e animazioni (labirinto con token animato/swipe/vista in prima persona, flip 3D nel memory, sentence-order con slot vuoti e undo, slider con tessere che scorrono, ecc.)
+- `app/globals.css` — il sistema di design (blueprint) e le animazioni di ogni gioco
 - `legacy-original-site/` — la primissima versione statica (HTML/CSS/JS), tenuta come riferimento
 
 ## Funzionalità

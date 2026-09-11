@@ -81,9 +81,9 @@ export function MazeGame({ onSolved }: { onSolved: () => void }) {
 
   return (
     <ScreenShell
-      screenId={1}
+      sheetIndex={1}
+      sheetName="Il labirinto"
       ambientIcons={['🧱', '➰', '🔩']}
-      eyebrow="Gioco 1 · Il labirinto"
       title="Guidami fino al 33."
       lead="Trascina, usa le frecce o tocca i pulsanti per muoverti ed uscire dal labirinto: da qualche parte lì in fondo ti aspetta un numero importante."
     >

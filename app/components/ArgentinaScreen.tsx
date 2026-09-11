@@ -11,9 +11,9 @@ const OPTIONS = [
 export function ArgentinaScreen({ onSolved }: { onSolved: () => void }) {
   return (
     <ScreenShell
-      screenId={5}
+      sheetIndex={5}
+      sheetName="Regole locali"
       ambientIcons={['🚗', '🅿️', '➡️']}
-      eyebrow="Gioco 5 · Regole locali"
       title="Come si parcheggiava in Argentina?"
       lead="Una regola tutta loro, che ancora oggi ci fa ridere."
     >

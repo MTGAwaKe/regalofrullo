@@ -6,9 +6,9 @@ const WORDS = ['La', 'visita', 'della', 'Grotta', 'del', 'Soffio,', 'mai', 'fatt
 export function GrottaScreen({ onSolved }: { onSolved: () => void }) {
   return (
     <ScreenShell
-      screenId={3}
+      sheetIndex={3}
+      sheetName="Un rimpianto (piccolo)"
       ambientIcons={['🪨', '💧', '🕳️']}
-      eyebrow="Gioco 3 · Un rimpianto (piccolo)"
       title="Rimetti in ordine le parole."
       lead="C'è una cosa che ci ha fatto rosicare parecchio durante quel viaggio in Puglia. Tocca le parole nell'ordine giusto per scoprire cosa — e tocca una parola già messa per rimetterla via."
     >
