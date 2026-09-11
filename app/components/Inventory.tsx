@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import { TOTAL_PIECES } from '../lib/pieces';
 
 /** The sticky top bar showing the ten collectible-tool slots. */
-export function Inventory({ pieces }: { pieces: (string | null)[] }) {
+export function Inventory({ pieces, children }: { pieces: (string | null)[]; children?: ReactNode }) {
   return (
     <div className="topbar">
       <div className="inventory-wrap">
@@ -16,6 +17,7 @@ export function Inventory({ pieces }: { pieces: (string | null)[] }) {
           })}
         </div>
         <div className="inventory-label">La tua cassetta degli attrezzi</div>
+        {children}
       </div>
     </div>
   );

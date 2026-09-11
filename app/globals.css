@@ -19,8 +19,11 @@ body{
   color:var(--cream);
   font-family:var(--font-poppins),sans-serif;
   min-height:100vh;
+  min-height:100dvh;
   overflow-x:hidden;
   -webkit-text-size-adjust:100%;
+  padding-left:env(safe-area-inset-left);
+  padding-right:env(safe-area-inset-right);
 }
 h1,h2,h3{font-family:var(--font-fredoka),sans-serif;}
 .mono{font-family:var(--font-space-mono),monospace;}
@@ -39,7 +42,7 @@ h1,h2,h3{font-family:var(--font-fredoka),sans-serif;}
   position:sticky;top:0;z-index:10;
   background:linear-gradient(180deg, rgba(11,18,49,.97), rgba(11,18,49,.85));
   backdrop-filter:blur(6px);
-  padding:10px 14px 8px;
+  padding:calc(10px + env(safe-area-inset-top)) 14px 8px;
   border-bottom:1px solid rgba(255,255,255,.06);
 }
 .inventory-wrap{max-width:480px;margin:0 auto;}
@@ -62,7 +65,10 @@ h1,h2,h3{font-family:var(--font-fredoka),sans-serif;}
 .inventory-label{text-align:center;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:6px;}
 
 /* stage / screens */
-.stage{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:28px 18px 70px;min-height:68vh;display:flex;flex-direction:column;justify-content:center;}
+.stage{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:28px 18px calc(28px + env(safe-area-inset-bottom));min-height:68vh;display:flex;flex-direction:column;justify-content:center;}
+.stage-content{position:relative;}
+.stage-content.exit{animation:stageExit .2s ease forwards;}
+@keyframes stageExit{to{opacity:0;transform:translateY(-8px);}}
 .screen{position:relative;}
 .screen > *{animation:fadeUp .5s ease both;}
 .screen > .ambient{animation:none;}
@@ -325,7 +331,46 @@ p.lead{position:relative;z-index:1;color:var(--dim);font-size:15.5px;line-height
 .confetti span{position:absolute;top:-10px;width:8px;height:14px;opacity:.9;animation:fall linear forwards;}
 @keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.2;}}
 
-footer.note{max-width:640px;margin:0 auto;padding:0 18px 36px;color:var(--dim);font-size:11.5px;text-align:center;}
+footer.note{max-width:640px;margin:0 auto;padding:0 18px calc(36px + env(safe-area-inset-bottom));color:var(--dim);font-size:11.5px;text-align:center;}
+
+/* ============ Audio control (lives inside the sticky top bar) ============ */
+.audio-control{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin:8px auto 0;width:fit-content;
+  background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.1);border-radius:20px;
+  padding:4px 10px;
+}
+.audio-btn{
+  background:none;border:none;color:var(--cream);font-size:16px;line-height:1;
+  cursor:pointer;padding:4px;min-width:32px;min-height:32px;
+}
+.audio-slider{
+  width:80px;accent-color:var(--gold);cursor:pointer;height:24px;
+}
+
+/* ============ Maze: first-person mini-view ============ */
+.fpv-label{position:relative;z-index:1;text-align:center;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;}
+.fpv-frame{
+  position:relative;z-index:1;max-width:320px;margin:0 auto 16px;border-radius:14px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.14);box-shadow:0 12px 28px rgba(0,0,0,.4), inset 0 0 24px rgba(0,0,0,.5);
+}
+.maze-fpv{display:block;width:100%;height:auto;}
+.fpv-wall{fill:#1a2158;stroke:rgba(63,224,208,.55);stroke-width:1.5;}
+.fpv-endwall{fill:#141a44;stroke:var(--gold);stroke-width:2;}
+.fpv-goal circle{fill:rgba(255,79,163,.25);stroke:var(--pink);stroke-width:2;animation:goalPulse 1.8s ease-in-out infinite;}
+.fpv-goal text{font-family:var(--font-space-mono),monospace;font-weight:700;fill:var(--pink);font-size:11px;}
+.fpv-win-flash{fill:var(--gold-soft);animation:fpvFlash .5s ease forwards;}
+@keyframes fpvFlash{from{opacity:.8;}to{opacity:0;}}
+
+/* ============ 404 ============ */
+.not-found{
+  position:relative;z-index:1;max-width:420px;margin:0 auto;padding:60px 20px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.not-found-icon{font-size:56px;animation:popIn .6s cubic-bezier(.34,1.56,.64,1) both;}
+.not-found .title{margin:6px 0 0;}
+.not-found .lead{margin:0 0 18px;}
+.not-found-btn{width:auto;padding:14px 28px;}
 
 /* small utility classes (replace one-off inline styles from the original markup) */
 .tight-p{margin:0 0 10px;}

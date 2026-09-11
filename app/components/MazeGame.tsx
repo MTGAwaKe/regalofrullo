@@ -1,33 +1,16 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ScreenShell } from './ScreenShell';
+import { MazeFirstPersonView } from './MazeFirstPersonView';
+import { LAYOUT, ROWS, COLS, START, GOAL, DIR_VECTORS, computeFirstPersonView, posKey, type Dir } from '../lib/mazeLayout';
 
-const LAYOUT = [
-  [1, 1, 1, 1, 1, 0, 0],
-  [0, 1, 1, 0, 1, 1, 1],
-  [1, 1, 1, 1, 1, 0, 1],
-  [1, 0, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1],
-  [0, 0, 0, 0, 1, 0, 0],
-  [0, 0, 0, 1, 1, 1, 1],
-];
-const ROWS = LAYOUT.length;
-const COLS = LAYOUT[0].length;
-const START = { r: 0, c: 0 };
-const GOAL = { r: 6, c: 6 };
 const SWIPE_THRESHOLD = 24;
-
-type Dir = 'up' | 'down' | 'left' | 'right';
-const DIRS: Record<Dir, [number, number]> = { up: [-1, 0], down: [1, 0], left: [0, -1], right: [0, 1] };
-
-function key(r: number, c: number) {
-  return `${r},${c}`;
-}
 
 export function MazeGame({ onSolved }: { onSolved: () => void }) {
   const [pos, setPos] = useState(START);
-  const [visited, setVisited] = useState<Set<string>>(() => new Set([key(START.r, START.c)]));
+  const [facing, setFacing] = useState<Dir>('right');
+  const [visited, setVisited] = useState<Set<string>>(() => new Set([posKey(START.r, START.c)]));
   const [won, setWon] = useState(false);
   const [bump, setBump] = useState(false);
 
@@ -42,7 +25,8 @@ export function MazeGame({ onSolved }: { onSolved: () => void }) {
     (dir: Dir) => {
       const { pos, won } = stateRef.current;
       if (won) return;
-      const [dr, dc] = DIRS[dir];
+      setFacing(dir);
+      const [dr, dc] = DIR_VECTORS[dir];
       const nr = pos.r + dr;
       const nc = pos.c + dc;
       const blocked = nr < 0 || nc < 0 || nr >= ROWS || nc >= COLS || LAYOUT[nr][nc] !== 1;
@@ -53,7 +37,7 @@ export function MazeGame({ onSolved }: { onSolved: () => void }) {
       setPos({ r: nr, c: nc });
       setVisited((v) => {
         const next = new Set(v);
-        next.add(key(nr, nc));
+        next.add(posKey(nr, nc));
         return next;
       });
       if (nr === GOAL.r && nc === GOAL.c) {
@@ -93,6 +77,8 @@ export function MazeGame({ onSolved }: { onSolved: () => void }) {
     else move(dy > 0 ? 'down' : 'up');
   }
 
+  const view = useMemo(() => computeFirstPersonView(pos, facing), [pos, facing]);
+
   return (
     <ScreenShell
       screenId={1}
@@ -102,6 +88,11 @@ export function MazeGame({ onSolved }: { onSolved: () => void }) {
       lead="Trascina, usa le frecce o tocca i pulsanti per muoverti ed uscire dal labirinto: da qualche parte lì in fondo ti aspetta un numero importante."
     >
       <div className="card">
+        <div className="fpv-label">La tua vista</div>
+        <div className="fpv-frame">
+          <MazeFirstPersonView view={view} won={won} />
+        </div>
+
         <div className="maze-legend">
           <span>
             <i className="i-open" /> percorso libero
@@ -120,19 +111,19 @@ export function MazeGame({ onSolved }: { onSolved: () => void }) {
             <div className="maze-grid" style={{ gridTemplateColumns: `repeat(${COLS}, minmax(28px, 42px))` }}>
               {LAYOUT.map((row, r) =>
                 row.map((cellValue, c) => {
-                  const isOpen = cellValue === 1;
-                  const isGoal = isOpen && r === GOAL.r && c === GOAL.c;
-                  const isVisited = isOpen && visited.has(key(r, c));
+                  const isOpenCell = cellValue === 1;
+                  const isGoal = isOpenCell && r === GOAL.r && c === GOAL.c;
+                  const isVisited = isOpenCell && visited.has(posKey(r, c));
                   const classes = [
                     'maze-cell',
-                    isOpen ? 'open' : 'wall',
+                    isOpenCell ? 'open' : 'wall',
                     isGoal ? 'goal' : '',
                     isVisited && !isGoal ? 'visited' : '',
                   ]
                     .filter(Boolean)
                     .join(' ');
                   return (
-                    <div key={key(r, c)} className={classes}>
+                    <div key={posKey(r, c)} className={classes}>
                       {isGoal ? '33' : ''}
                     </div>
                   );
