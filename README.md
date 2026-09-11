@@ -19,9 +19,10 @@ Apri [http://localhost:3000](http://localhost:3000).
 
 ## Struttura
 
-- `app/page.tsx` — markup delle 11 schermate (intro + 9 giochi + reveal finale)
-- `app/game.js` — logica dei giochi (porting 1:1 della versione originale in vanilla JS)
-- `app/globals.css` — stile originale del biglietto
+- `app/page.tsx` — orchestratore: stato della schermata corrente, inventario, toast, coriandoli
+- `app/components/` — un componente React per schermata/gioco (stato vero, non più manipolazione diretta del DOM)
+- `app/lib/` — dati condivisi (i 10 pezzi) e utility (shuffle)
+- `app/globals.css` — stile e animazioni (rivisto rispetto all'originale: labirinto con token animato e swipe, flip 3D nel memory, sentence-order con slot vuoti e undo, slider con tessere che scorrono, ecc.)
 - `legacy-original-site/` — la primissima versione statica (HTML/CSS/JS), tenuta come riferimento
 
 ## Deploy
