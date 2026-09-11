@@ -1,15 +1,13 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ScreenShell } from './ScreenShell';
-import { MazeFirstPersonView } from './MazeFirstPersonView';
-import { LAYOUT, ROWS, COLS, START, GOAL, DIR_VECTORS, computeFirstPersonView, posKey, type Dir } from '../lib/mazeLayout';
+import { LAYOUT, ROWS, COLS, START, GOAL, DIR_VECTORS, posKey, type Dir } from '../lib/mazeLayout';
 
 const SWIPE_THRESHOLD = 24;
 
 export function MazeGame({ onSolved }: { onSolved: () => void }) {
   const [pos, setPos] = useState(START);
-  const [facing, setFacing] = useState<Dir>('right');
   const [visited, setVisited] = useState<Set<string>>(() => new Set([posKey(START.r, START.c)]));
   const [won, setWon] = useState(false);
   const [bump, setBump] = useState(false);
@@ -25,7 +23,6 @@ export function MazeGame({ onSolved }: { onSolved: () => void }) {
     (dir: Dir) => {
       const { pos, won } = stateRef.current;
       if (won) return;
-      setFacing(dir);
       const [dr, dc] = DIR_VECTORS[dir];
       const nr = pos.r + dr;
       const nc = pos.c + dc;
@@ -77,8 +74,6 @@ export function MazeGame({ onSolved }: { onSolved: () => void }) {
     else move(dy > 0 ? 'down' : 'up');
   }
 
-  const view = useMemo(() => computeFirstPersonView(pos, facing), [pos, facing]);
-
   return (
     <ScreenShell
       sheetIndex={1}
@@ -88,11 +83,6 @@ export function MazeGame({ onSolved }: { onSolved: () => void }) {
       lead="Trascina, usa le frecce o tocca i pulsanti per muoverti ed uscire dal labirinto: da qualche parte lì in fondo ti aspetta un numero importante."
     >
       <div className="card">
-        <div className="fpv-label">La tua vista</div>
-        <div className="fpv-frame">
-          <MazeFirstPersonView view={view} won={won} />
-        </div>
-
         <div className="maze-legend">
           <span>
             <i className="i-open" /> percorso libero

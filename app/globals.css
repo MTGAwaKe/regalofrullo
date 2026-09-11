@@ -352,20 +352,6 @@ footer.note{max-width:640px;margin:0 auto;padding:0 18px calc(36px + env(safe-ar
 }
 .audio-slider{width:80px;accent-color:var(--brass);cursor:pointer;height:24px;}
 
-/* ============ Maze: first-person mini-view ============ */
-.fpv-label{position:relative;z-index:1;text-align:center;font-size:10.5px;letter-spacing:.12em;color:var(--ink-dim);margin-bottom:6px;font-family:var(--font-plex-mono),monospace;}
-.fpv-frame{
-  position:relative;z-index:1;max-width:320px;margin:0 auto 16px;border-radius:4px;overflow:hidden;
-  border:1px solid var(--line);box-shadow:inset 0 0 24px rgba(0,0,0,.5);
-}
-.maze-fpv{display:block;width:100%;height:auto;}
-.fpv-wall{fill:#0F3450;stroke:var(--line);stroke-width:1.5;}
-.fpv-endwall{fill:#0A283F;stroke:var(--brass);stroke-width:2;}
-.fpv-goal circle{fill:rgba(228,98,44,.25);stroke:var(--grease);stroke-width:2;animation:goalPulse 1.8s ease-in-out infinite;}
-.fpv-goal text{font-family:var(--font-plex-mono),monospace;font-weight:700;fill:var(--grease);font-size:11px;}
-.fpv-win-flash{fill:var(--brass);animation:fpvFlash .5s ease forwards;}
-@keyframes fpvFlash{from{opacity:.8;}to{opacity:0;}}
-
 /* ============ 404 ============ */
 .not-found{
   position:relative;z-index:1;max-width:420px;margin:0 auto;padding:60px 20px;text-align:center;

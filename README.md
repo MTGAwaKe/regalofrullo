@@ -41,7 +41,6 @@ solo momento di vero calore cromatico: il biglietto Gardaland finale.
 
 - **Audio**: una melodia di festa originale generata via Web Audio API (nessun file esterno), con pulsante muto e slider del volume; preferenze salvate in `localStorage`
 - **Progressi salvati**: schermata e inventario vengono ricordati in `localStorage`, così si può riprendere da dove si era arrivati
-- **Labirinto**: oltre alla mappa dall'alto, una mini-view in prima persona (SVG) mostra il corridoio davanti a sé in base alla direzione dell'ultimo movimento
 - **Ottimizzato per mobile**: safe-area insets per notch/home-indicator, target di tocco generosi, nessuno scroll orizzontale
 
 ## Prossimi passi (non ancora fatti)
