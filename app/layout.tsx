@@ -8,6 +8,11 @@ const stencil = Big_Shoulders_Stencil({
   subsets: ['latin'],
   weight: ['700', '800'],
   variable: '--font-stencil',
+  // Next.js has no fallback-metric data for this face, so it can't compute
+  // an automatic fallback override — turning that off silences a harmless
+  // build warning without changing anything actually rendered.
+  adjustFontFallback: false,
+  fallback: ['Impact', 'Arial Narrow', 'sans-serif'],
 });
 
 // Body copy. Paired with its own mono cut for anything genuinely numeric or

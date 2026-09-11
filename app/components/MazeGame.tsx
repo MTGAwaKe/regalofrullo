@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ScreenShell } from './ScreenShell';
 import { LAYOUT, ROWS, COLS, START, GOAL, DIR_VECTORS, posKey, type Dir } from '../lib/mazeLayout';
+import { getBackgroundMusic } from '../lib/backgroundMusic';
+import { vibrate, HAPTIC } from '../lib/haptics';
 
 const SWIPE_THRESHOLD = 24;
 
@@ -29,6 +31,8 @@ export function MazeGame({ onSolved }: { onSolved: () => void }) {
       const blocked = nr < 0 || nc < 0 || nr >= ROWS || nc >= COLS || LAYOUT[nr][nc] !== 1;
       if (blocked) {
         setBump(true);
+        getBackgroundMusic().playTick();
+        vibrate(HAPTIC.bump);
         return;
       }
       setPos({ r: nr, c: nc });
@@ -39,6 +43,8 @@ export function MazeGame({ onSolved }: { onSolved: () => void }) {
       });
       if (nr === GOAL.r && nc === GOAL.c) {
         setWon(true);
+        getBackgroundMusic().playCorrect();
+        vibrate(HAPTIC.win);
         setTimeout(onSolved, 500);
       }
     },

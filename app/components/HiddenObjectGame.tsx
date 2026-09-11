@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { ScreenShell } from './ScreenShell';
 import { shuffle } from '../lib/shuffle';
+import { getBackgroundMusic } from '../lib/backgroundMusic';
+import { vibrate, HAPTIC } from '../lib/haptics';
 
 const TARGETS = ['☀️', '🌊', '🫒', '🐚'];
 const DECOYS = [
@@ -71,11 +73,17 @@ export function HiddenObjectGame({ onSolved }: { onSolved: () => void }) {
       if (nextFound.size === TARGETS.length) {
         setPhase('done');
         setMessage({ text: 'Trovati tutti: sole, mare, ulivi e conchiglie. La Puglia dei tuoi 33 anni.', kind: 'ok' });
+        getBackgroundMusic().playCorrect();
+        vibrate(HAPTIC.correct);
         onSolved();
+      } else {
+        getBackgroundMusic().playTick();
       }
     } else {
       setRevealed((r) => ({ ...r, [idx]: 'decoy' }));
       setShakeIdx(idx);
+      getBackgroundMusic().playWrong();
+      vibrate(HAPTIC.wrong);
       const nextMistakes = mistakes + 1;
       setMistakes(nextMistakes);
       if (nextMistakes >= MAX_MISTAKES) {

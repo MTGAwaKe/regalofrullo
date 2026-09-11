@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { getBackgroundMusic } from '../lib/backgroundMusic';
+import { vibrate, HAPTIC } from '../lib/haptics';
 
 type Option = { text: string; correct: boolean };
 
@@ -22,9 +24,13 @@ export function QuizGame({
     if (options[i].correct) {
       setAnsweredIdx(i);
       setSolved(true);
+      getBackgroundMusic().playCorrect();
+      vibrate(HAPTIC.correct);
       onSolved();
     } else {
       setWrongIdx(i);
+      getBackgroundMusic().playWrong();
+      vibrate(HAPTIC.wrong);
       setTimeout(() => setWrongIdx((w) => (w === i ? null : w)), 500);
     }
   }

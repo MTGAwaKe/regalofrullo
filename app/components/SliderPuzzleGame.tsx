@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { ScreenShell } from './ScreenShell';
+import { getBackgroundMusic } from '../lib/backgroundMusic';
+import { vibrate, HAPTIC } from '../lib/haptics';
 
 const TARGET = ['🍚', '🥣', '🥬', '🌰', '🍑', ''];
 const NAMES: Record<string, string> = {
@@ -49,7 +51,11 @@ export function SliderPuzzleGame({ onSolved }: { onSolved: () => void }) {
     setState(next);
     if (next.join('') === TARGET.join('')) {
       setSolved(true);
+      getBackgroundMusic().playCorrect();
+      vibrate(HAPTIC.correct);
       onSolved();
+    } else {
+      getBackgroundMusic().playTick();
     }
   }
 

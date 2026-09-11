@@ -59,6 +59,8 @@ h1,h2,h3{font-family:var(--font-plex-sans),sans-serif;font-weight:700;margin:0;}
 }
 .inv-slot.filled.pop{animation:popIn .5s cubic-bezier(.34,1.56,.64,1);}
 @keyframes popIn{0%{transform:scale(.3);}60%{transform:scale(1.2);}100%{transform:scale(1);}}
+.inventory-progress-track{max-width:340px;margin:8px auto 0;height:3px;border-radius:2px;background:rgba(95,160,196,.25);overflow:hidden;}
+.inventory-progress-fill{height:100%;background:var(--brass);transition:width .5s cubic-bezier(.34,1.2,.64,1);}
 .inventory-label{text-align:center;font-size:10.5px;letter-spacing:.1em;color:var(--ink-dim);margin-top:6px;font-family:var(--font-plex-mono),monospace;}
 
 /* stage / sheets */
@@ -300,6 +302,28 @@ h1,h2,h3{font-family:var(--font-plex-sans),sans-serif;font-weight:700;margin:0;}
 .slider-tile.slidable{cursor:pointer;}
 .slider-tile.slidable::before{border-color:var(--brass);box-shadow:0 0 10px rgba(201,162,39,.35);}
 .slider-tile.slidable:active{transform:scale(.94);}
+
+/* ============ Piece assembly recap animation ============ */
+.assembly-anim{position:relative;z-index:1;min-height:190px;display:flex;align-items:center;justify-content:center;margin:8px 0 20px;}
+
+.assembly-narrate{display:flex;flex-direction:column;align-items:center;gap:10px;animation:narrateIn .35s ease both;}
+.assembly-narrate-icon{font-size:56px;filter:drop-shadow(0 4px 6px rgba(0,0,0,.4));}
+.assembly-narrate-label{font-family:var(--font-plex-mono),monospace;font-size:12.5px;color:var(--brass);text-transform:uppercase;letter-spacing:.08em;}
+@keyframes narrateIn{from{opacity:0;transform:scale(.7) translateY(8px);}to{opacity:1;transform:scale(1) translateY(0);}}
+
+.assembly-converge{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:14px;padding:0 10px;}
+.assembly-converge-icon{font-size:26px;text-align:center;animation:convergeIn .35s ease both;animation-delay:calc(var(--i) * 25ms);}
+@keyframes convergeIn{from{opacity:0;transform:scale(.4);}to{opacity:1;transform:scale(1);}}
+.assembly-converge.dust .assembly-converge-icon{animation:convergeShrink .5s ease forwards;}
+@keyframes convergeShrink{to{opacity:0;transform:scale(.15);}}
+
+.assembly-dust-burst{position:absolute;inset:0;pointer-events:none;}
+.dust-mote{
+  position:absolute;left:50%;top:50%;width:6px;height:6px;border-radius:50%;background:var(--brass);
+  transform:translate(-50%,-50%) rotate(var(--a)) translateX(0);
+  animation:dustFly .7s ease-out forwards;
+}
+@keyframes dustFly{to{transform:translate(-50%,-50%) rotate(var(--a)) translateX(100px);opacity:0;}}
 
 /* ============ Final assembly + ticket — the one bold moment ============ */
 .assembly-stage{

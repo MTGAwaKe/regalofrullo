@@ -6,6 +6,8 @@
  */
 
 const NOTE_FREQS: Record<string, number> = {
+  G2: 98.0,
+  A2: 110.0,
   C3: 130.81,
   G3: 196.0,
   C4: 261.63,
@@ -18,6 +20,7 @@ const NOTE_FREQS: Record<string, number> = {
   D5: 587.33,
   E5: 659.25,
   G5: 783.99,
+  C6: 1046.5,
 };
 
 const MELODY = ['C4', 'E4', 'G4', 'C5', 'G4', 'E4', 'D4', 'G4'];
@@ -111,6 +114,27 @@ class BackgroundMusic {
     FLOURISH.forEach((note, i) => {
       this.playNote(NOTE_FREQS[note], start + i * 0.09, 0.22, 'triangle', 0.3);
     });
+  }
+
+  /** A short cheerful "ding" for a correct answer / found match / solved puzzle. */
+  playCorrect() {
+    if (!this.ctx || !this.masterGain) return;
+    const start = this.ctx.currentTime + 0.01;
+    this.playNote(NOTE_FREQS.E5, start, 0.12, 'triangle', 0.28);
+    this.playNote(NOTE_FREQS.C6, start + 0.09, 0.16, 'triangle', 0.26);
+  }
+
+  /** A short low buzz for a wrong answer. */
+  playWrong() {
+    if (!this.ctx || !this.masterGain) return;
+    const start = this.ctx.currentTime + 0.01;
+    this.playNote(NOTE_FREQS.A2, start, 0.16, 'sawtooth', 0.18);
+  }
+
+  /** A tiny neutral click — a maze wall bump, a tile that can't move, etc. */
+  playTick() {
+    if (!this.ctx || !this.masterGain) return;
+    this.playNote(NOTE_FREQS.C6, this.ctx.currentTime + 0.005, 0.05, 'square', 0.12);
   }
 
   private playNote(freq: number, time: number, dur: number, type: OscillatorType, peak: number) {

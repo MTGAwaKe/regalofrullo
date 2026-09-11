@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { shuffle } from '../lib/shuffle';
+import { getBackgroundMusic } from '../lib/backgroundMusic';
+import { vibrate, HAPTIC } from '../lib/haptics';
 
 type WordItem = { word: string; idx: number };
 
@@ -35,14 +37,19 @@ export function SentenceOrderGame({
     if (status !== 'playing' || usedIdx.has(item.idx)) return;
     const nextPlaced = [...placed, item];
     setPlaced(nextPlaced);
+    getBackgroundMusic().playTick();
 
     if (nextPlaced.length === words.length) {
       const correct = nextPlaced.every((p, i) => p.idx === i);
       if (correct) {
         setStatus('correct');
+        getBackgroundMusic().playCorrect();
+        vibrate(HAPTIC.correct);
         onSolved();
       } else {
         setStatus('wrong');
+        getBackgroundMusic().playWrong();
+        vibrate(HAPTIC.wrong);
         setTimeout(reset, 800);
       }
     }

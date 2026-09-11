@@ -39,8 +39,11 @@ solo momento di vero calore cromatico: il biglietto Gardaland finale.
 
 ## Funzionalità
 
-- **Audio**: una melodia di festa originale generata via Web Audio API (nessun file esterno), con pulsante muto e slider del volume; preferenze salvate in `localStorage`
+- **Audio**: una melodia di festa originale generata via Web Audio API (nessun file esterno), con pulsante muto e slider del volume; preferenze salvate in `localStorage`; piccoli effetti sonori (corretto/sbagliato/click) per ogni gioco
+- **Vibrazione tattile** su mobile per bump, risposte sbagliate e coppie/risposte trovate (Android; su iOS Safari non fa nulla, l'API non esiste)
 - **Progressi salvati**: schermata e inventario vengono ricordati in `localStorage`, così si può riprendere da dove si era arrivati
+- **Barra di avanzamento** (N/10) accanto alla cassetta degli attrezzi
+- **Reveal finale**: i dieci pezzi vengono ripresentati uno a uno con il loro nome, poi convergono in una nuvola di polvere prima di rivelare l'ottovolante e il biglietto
 - **Ottimizzato per mobile**: safe-area insets per notch/home-indicator, target di tocco generosi, nessuno scroll orizzontale
 
 ## Prossimi passi (non ancora fatti)

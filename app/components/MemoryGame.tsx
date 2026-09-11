@@ -3,6 +3,8 @@
 import { useRef, useState } from 'react';
 import { ScreenShell } from './ScreenShell';
 import { shuffle } from '../lib/shuffle';
+import { getBackgroundMusic } from '../lib/backgroundMusic';
+import { vibrate, HAPTIC } from '../lib/haptics';
 
 const ICONS = ['💙', '⭐', '🌺', '📚', '☕', '🌙', '🎈', '💌'];
 
@@ -36,11 +38,15 @@ export function MemoryGame({ onSolved }: { onSolved: () => void }) {
         setFlippedIds([]);
         setLocked(false);
         matchedCount.current += 1;
+        getBackgroundMusic().playCorrect();
+        vibrate(HAPTIC.correct);
         if (matchedCount.current === ICONS.length) {
           setDone(true);
           onSolved();
         }
       } else {
+        getBackgroundMusic().playWrong();
+        vibrate(HAPTIC.wrong);
         setTimeout(() => {
           setCards((cs) => cs.map((c) => (c.id === a.id || c.id === b.id ? { ...c, flipped: false } : c)));
           setFlippedIds([]);

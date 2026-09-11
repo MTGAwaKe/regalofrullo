@@ -52,8 +52,6 @@ export default function Home() {
   const [transitionState, setTransitionState] = useState<'enter' | 'exit'>('enter');
   const [inventory, setInventory] = useState<(string | null)[]>(Array(TOTAL_PIECES).fill(null));
   const [toast, setToast] = useState<ToastState>(null);
-  const [assemblyRevealed, setAssemblyRevealed] = useState(false);
-  const [ticketRevealed, setTicketRevealed] = useState(false);
   const { particles, fire } = useConfetti();
   const music = useBackgroundMusic();
 
@@ -134,23 +132,9 @@ export default function Home() {
     music.flourish();
   }, [fire, music]);
 
-  // Final reveal: the last piece (the "vagone") arrives on its own, followed
-  // by the coaster assembly and the ticket, each with its own little pause.
-  useEffect(() => {
-    if (displayScreen !== 10) return;
-    const t1 = setTimeout(() => collectPiece(TOTAL_PIECES - 1), 400);
-    const t2 = setTimeout(() => setAssemblyRevealed(true), 1400);
-    const t3 = setTimeout(() => {
-      setTicketRevealed(true);
-      fireConfetti();
-    }, 2400);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [displayScreen]);
+  // The last piece (the "vagone") is awarded as the finale of FinalReveal's
+  // own piece-by-piece recap animation, not on a fixed page-level timer.
+  const collectFinalPiece = useCallback(() => collectPiece(TOTAL_PIECES - 1), [collectPiece]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -180,7 +164,7 @@ export default function Home() {
           {displayScreen === 8 && <AudiScreen onSolved={() => handleSolved(8)} />}
           {displayScreen === 9 && <IrlandaScreen onSolved={() => handleSolved(9)} />}
           {displayScreen === 10 && (
-            <FinalReveal assemblyRevealed={assemblyRevealed} ticketRevealed={ticketRevealed} onFireConfetti={fireConfetti} />
+            <FinalReveal onCollectFinalPiece={collectFinalPiece} onFireConfetti={fireConfetti} />
           )}
         </div>
       </div>
