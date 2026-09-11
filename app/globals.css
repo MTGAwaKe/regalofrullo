@@ -239,7 +239,10 @@ h1,h2,h3{font-family:var(--font-plex-sans),sans-serif;font-weight:700;margin:0;}
   background:var(--panel);border:1px solid rgba(95,160,196,.4);
 }
 .card-mem.flipped .card-mem-inner,.card-mem.matched .card-mem-inner{transform:rotateY(180deg);}
-.card-mem.matched .card-mem-inner{border-color:var(--correct);background:rgba(79,209,184,.15);opacity:.75;animation:matchPulse .4s ease;}
+/* No `opacity` here on purpose: opacity on an element inside a preserve-3d
+   flip forces compositing that breaks backface-visibility in Chromium,
+   showing the wrong face. Use a translucent background instead. */
+.card-mem.matched .card-mem-inner{border-color:var(--correct);background:rgba(79,209,184,.22);animation:matchPulse .4s ease;}
 .card-mem .back,.card-mem .face{
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   backface-visibility:hidden;border-radius:4px;font-size:22px;
