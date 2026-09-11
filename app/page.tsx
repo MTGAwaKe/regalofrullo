@@ -21,30 +21,6 @@ import { useBackgroundMusic } from './lib/useBackgroundMusic';
 
 const NAV_DELAY_MS = 1300;
 const TRANSITION_MS = 220;
-const PROGRESS_KEY = 'regalofrullo:progress';
-
-type Progress = { screen: number; inventory: (string | null)[] };
-
-function loadProgress(): Progress | null {
-  if (typeof window === 'undefined') return null;
-  try {
-    const raw = window.localStorage.getItem(PROGRESS_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw);
-    if (
-      typeof parsed.screen === 'number' &&
-      parsed.screen >= 0 &&
-      parsed.screen <= 10 &&
-      Array.isArray(parsed.inventory) &&
-      parsed.inventory.length === TOTAL_PIECES
-    ) {
-      return parsed;
-    }
-  } catch {
-    // ignore corrupt/unavailable storage
-  }
-  return null;
-}
 
 export default function Home() {
   const [screen, setScreen] = useState(0);
@@ -55,34 +31,16 @@ export default function Home() {
   const { particles, fire } = useConfetti();
   const music = useBackgroundMusic();
 
-  // Guards the save effect below until the restore effect has had its one
-  // chance to run — otherwise that effect's very first pass (still holding
-  // the default screen=0/empty-inventory closure) can write over a just
-  // -restored session before the restored state has flushed.
-  const [hydrated, setHydrated] = useState(false);
-
-  // Resume a previous session, if any, once we're safely on the client.
-  // (Reading localStorage during the render itself would make the static
-  // prerendered HTML and the client's first render disagree.)
+  // One-time cleanup: earlier versions saved progress to localStorage so a
+  // refresh could resume where you left off. That's gone now — every visit
+  // starts fresh — so remove any leftover data from before this change.
   useEffect(() => {
-    const saved = loadProgress();
-    if (saved) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setScreen(saved.screen);
-      setDisplayScreen(saved.screen);
-      setInventory(saved.inventory);
-    }
-    setHydrated(true);
-  }, []);
-
-  useEffect(() => {
-    if (!hydrated) return;
     try {
-      window.localStorage.setItem(PROGRESS_KEY, JSON.stringify({ screen, inventory }));
+      window.localStorage.removeItem('regalofrullo:progress');
     } catch {
       // ignore (private browsing / storage disabled)
     }
-  }, [hydrated, screen, inventory]);
+  }, []);
 
   // Cross-fade between screens: fade the outgoing one out, then swap. This is
   // a small local animation state machine synchronized to `screen` changing,

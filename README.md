@@ -31,7 +31,7 @@ solo momento di vero calore cromatico: il biglietto Gardaland finale.
 
 ## Struttura
 
-- `app/page.tsx` — orchestratore: schermata corrente (con transizione), inventario, toast, coriandoli, persistenza progressi
+- `app/page.tsx` — orchestratore: schermata corrente (con transizione), inventario, toast, coriandoli
 - `app/components/` — un componente React per schermata/gioco (stato vero, non più manipolazione diretta del DOM); `ScreenShell` disegna il "foglio" comune a tutte
 - `app/lib/` — dati condivisi (i 10 pezzi), utility (shuffle), geometria del labirinto, motore audio
 - `app/globals.css` — il sistema di design (blueprint) e le animazioni di ogni gioco
@@ -41,8 +41,8 @@ solo momento di vero calore cromatico: il biglietto Gardaland finale.
 
 - **Audio**: una melodia di festa originale generata via Web Audio API (nessun file esterno), con pulsante muto e slider del volume; preferenze salvate in `localStorage`; piccoli effetti sonori (corretto/sbagliato/click) per ogni gioco
 - **Vibrazione tattile** su mobile per bump, risposte sbagliate e coppie/risposte trovate (Android; su iOS Safari non fa nulla, l'API non esiste)
-- **Progressi salvati**: schermata e inventario vengono ricordati in `localStorage`, così si può riprendere da dove si era arrivati
 - **Barra di avanzamento** (N/10) accanto alla cassetta degli attrezzi
+- Nessun progresso salvato: ogni apertura/refresh riparte dalla copertina
 - **Reveal finale**: i dieci pezzi vengono ripresentati uno a uno con il loro nome, poi convergono in una nuvola di polvere prima di rivelare l'ottovolante e il biglietto
 - **Ottimizzato per mobile**: safe-area insets per notch/home-indicator, target di tocco generosi, nessuno scroll orizzontale
 
