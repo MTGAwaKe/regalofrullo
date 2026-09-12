@@ -1,7 +1,7 @@
 import { ScreenShell } from './ScreenShell';
 import { SentenceOrderGame } from './SentenceOrderGame';
 
-const WORDS = ['Ti', 'amo', 'un', 'sacchissimo,', 'come', "l'erba", "d'Irlanda:", 'sempre', 'verde.'];
+const WORDS = ['Ti', 'amo', 'un', 'sacchissimo,', 'come', 'tu', 'ami', "l'Irlanda"];
 
 export function IrlandaScreen({ onSolved }: { onSolved: () => void }) {
   return (
@@ -12,7 +12,7 @@ export function IrlandaScreen({ onSolved }: { onSolved: () => void }) {
       title="Un ultimo indovinello, poi il regalo."
       lead="Il tuo posto del cuore, quello dove l'erba è sempre verde. Rimetti in ordine le parole."
     >
-      <SentenceOrderGame words={WORDS} successMsg="Sempre. Ultimo indizio raccolto." onSolved={onSolved} />
+      <SentenceOrderGame words={WORDS} successMsg="Sempre verde. Ultimo indizio raccolto." onSolved={onSolved} />
     </ScreenShell>
   );
 }
